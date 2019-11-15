@@ -454,7 +454,7 @@ dpkg_list(
     # If there was a security fix to a package before the stable release, this will find
     # the older security release. This happened for stretch libc6.
     sources = [
-        "@debian11_security//file:Packages.json",
+        #"@debian11_security//file:Packages.json",
         "@debian11//file:Packages.json",
     ],
 )
@@ -465,6 +465,13 @@ dpkg_src(
     packages_gz_url = "https://snapshot.debian.org/archive/debian-security/20191028T085816Z/dists/buster/updates/main/binary-amd64/Packages.gz",
     sha256 = "dace61a2f1c4031f33dbc78e416a7211fad9946a3d997e96256561ed92b034be",
 )
+
+#dpkg_src(
+#    name = "debian11_security",
+#    package_prefix = "https://snapshot.debian.org/archive/debian-security/20191028T085816Z/",
+#    packages_gz_url = "https://snapshot.debian.org/archive/debian-security/20191028T085816Z/dists/bullseye-security/updates/main/binary-amd64/Packages.gz",
+#    sha256 = "dace61a2f1c4031f33dbc78e416a7211fad9946a3d997e96256561ed92b034be",
+#)
 
 dpkg_src(
     name = "debian11",
