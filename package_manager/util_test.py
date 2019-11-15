@@ -37,12 +37,13 @@ BUG_REPORT_URL="https://github.com/GoogleContainerTools/distroless/issues/new"
 """
 
 DEBIAN_BULLSEYE_OS_RELEASE = """PRETTY_NAME="Distroless"
-PRETTY_NAME="Debian GNU/Linux bullseye/sid"
 NAME="Debian GNU/Linux"
-ID=debian
-HOME_URL="https://www.debian.org/"
-SUPPORT_URL="https://www.debian.org/support"
-BUG_REPORT_URL="https://bugs.debian.org/"
+ID="debian"
+VERSION_ID="11"
+VERSION="Debian GNU/Linux 11 (bullseye)"
+HOME_URL="https://github.com/GoogleContainerTools/distroless"
+SUPPORT_URL="https://github.com/GoogleContainerTools/distroless/blob/master/README.md"
+BUG_REPORT_URL="https://github.com/GoogleContainerTools/distroless/issues/new"
 """
 
 # VERSION and VERSION_ID aren't set on unknown distros
