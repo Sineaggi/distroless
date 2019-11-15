@@ -36,6 +36,15 @@ SUPPORT_URL="https://github.com/GoogleContainerTools/distroless/blob/master/READ
 BUG_REPORT_URL="https://github.com/GoogleContainerTools/distroless/issues/new"
 """
 
+DEBIAN_BULLSEYE_OS_RELEASE = """PRETTY_NAME="Distroless"
+PRETTY_NAME="Debian GNU/Linux bullseye/sid"
+NAME="Debian GNU/Linux"
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+"""
+
 # VERSION and VERSION_ID aren't set on unknown distros
 DEBIAN_UNKNOWN_OS_RELEASE = """PRETTY_NAME="Distroless"
 NAME="Debian GNU/Linux"
@@ -49,6 +58,7 @@ osReleaseForDistro = {
     "jessie": DEBIAN_JESSIE_OS_RELEASE,
     "stretch": DEBIAN_STRETCH_OS_RELEASE,
     "buster": DEBIAN_BUSTER_OS_RELEASE,
+    "bullseye": DEBIAN_BULLSEYE_OS_RELEASE,
     "???": DEBIAN_UNKNOWN_OS_RELEASE,
 }
 
