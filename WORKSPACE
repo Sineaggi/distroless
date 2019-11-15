@@ -477,7 +477,7 @@ dpkg_src(
     name = "debian11",
     arch = "amd64",
     distro = "bullseye",
-    sha256 = "ca19e4187523f4b087a2e7aaa2662c6a0b46dc81ff2f3dd44d9c5d95df0df212",
+    sha256 = "f6d20fb0c09611f34ba4b47a8d95e3684afbe98f4a885cea717b6cf279ef54fc",
     snapshot = "20191028T085816Z",
     url = "https://snapshot.debian.org/archive",
 )
