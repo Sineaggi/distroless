@@ -5,6 +5,7 @@ load("@io_bazel_rules_docker//contrib:test.bzl", "container_test")
 load("@io_bazel_rules_docker//java:image.bzl", "java_image")
 load("@package_bundle//file:packages.bzl", "packages", "versions")
 load("@package_bundle_debian10//file:packages.bzl", packages_debian10 = "packages", versions_debian10 = "versions")
+load("@package_bundle_debian11//file:packages.bzl", packages_debian11 = "packages", versions_debian11 = "versions")
 load("//cacerts:java.bzl", "cacerts_java")
 load("//java:jre_ver.bzl", "jre_ver")
 
@@ -13,11 +14,13 @@ DISTRO_SUFFIXES = ("_debian9", "_debian10")
 DISTRO_PACKAGES = {
     "_debian9": packages,
     "_debian10": packages_debian10,
+    "_debian11": packages_debian11,
 }
 
 DISTRO_VERSIONS = {
     "_debian9": versions,
     "_debian10": versions_debian10,
+    "_debian11": versions_debian11,
 }
 
 cacerts_java(
@@ -59,6 +62,8 @@ cacerts_java(
     ("_debian9", "java11_debug", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
     ("_debian10", "java11", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
     ("_debian10", "java11_debug", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
+    ("_debian11", "java11", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
+    ("_debian11", "java11_debug", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
 ]]
 
 # Provide aliases so the default images use debian9
