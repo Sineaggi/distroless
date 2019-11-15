@@ -37,6 +37,9 @@ def generate_os_release(distro, os_release_file):
     source is from an unknown debian release.
     """
 
+    print("TEST TEST")
+    print("the distro is " + distro)
+
     os_release = collections.OrderedDict([
         ("PRETTY_NAME", "Distroless"),
         ("NAME", "Debian GNU/Linux"),
