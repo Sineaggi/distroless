@@ -3,6 +3,7 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_image")
 load("@io_bazel_rules_docker//contrib:test.bzl", "container_test")
 load("@package_bundle//file:packages.bzl", "packages")
 load("@package_bundle_debian10//file:packages.bzl", packages_debian10 = "packages")
+load("@package_bundle_debian11//file:packages.bzl", packages_debian11 = "packages")
 load("//cacerts:cacerts.bzl", "cacerts")
 
 NONROOT = 65532
@@ -10,14 +11,16 @@ NONROOT = 65532
 DISTRO_PACKAGES = {
     "_debian9": packages,
     "_debian10": packages_debian10,
+    "_debian11": packages_debian11,
 }
 
 DISTRO_REPOSITORY = {
     "_debian9": "@debian_stretch",
     "_debian10": "@debian10",
+    "_debian11": "@debian11",
 }
 
-# Replicate everything for debian9 and debian10
+# Replicate everything for debian9, debian10 and debian11
 def distro_components(distro_suffix):
     cacerts(
         name = "cacerts" + distro_suffix,

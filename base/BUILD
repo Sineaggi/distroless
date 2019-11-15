@@ -102,6 +102,7 @@ pkg_tar(
 
 load("@package_bundle//file:packages.bzl", "packages")
 load("@package_bundle_debian10//file:packages.bzl", packages_debian10 = "packages")
+load("@package_bundle_debian11//file:packages.bzl", packages_debian11 = "packages")
 load("//cacerts:cacerts.bzl", "cacerts")
 
 go_binary(
@@ -112,10 +113,12 @@ go_binary(
     pure = "on",
 )
 
-# Replicate the containers and tests for debian9 and debian10
+# Replicate the containers and tests for debian9, debian10 and debian11
 distro_components("_debian9")
 
 distro_components("_debian10")
+
+distro_components("_debian11")
 
 # alias debian9 as the default images
 alias(
