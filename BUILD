@@ -29,6 +29,8 @@ container_bundle(
         "gcr.io/{PROJECT_ID}/cc-debian9:debug": "//cc:debug_debian9",
         "gcr.io/{PROJECT_ID}/cc-debian10:latest": "//cc:cc_debian10",
         "gcr.io/{PROJECT_ID}/cc-debian10:debug": "//cc:debug_debian10",
+        "gcr.io/{PROJECT_ID}/cc-debian11:latest": "//cc:cc_debian11",
+        "gcr.io/{PROJECT_ID}/cc-debian11:debug": "//cc:debug_debian11",
         "gcr.io/{PROJECT_ID}/java:latest": "//java:java8_debian9",
         "gcr.io/{PROJECT_ID}/java:8": "//java:java8_debian9",
         "gcr.io/{PROJECT_ID}/java:debug": "//java:java8_debug_debian9",
