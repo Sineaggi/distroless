@@ -356,6 +356,109 @@ dpkg_list(
     ],
 )
 
+dpkg_list(
+    name = "package_bundle_debian11",
+    packages = [
+        "libc6",
+        "base-files",
+        "ca-certificates",
+        "openssl",
+        "libssl1.1",
+        "libbz2-1.0",
+        "libdb5.3",
+        "libffi6",
+        "liblzma5",
+        "libexpat1",
+        "libreadline7",
+        "libsqlite3-0",
+        "mime-support",
+        "netbase",
+        "readline-common",
+        "tzdata",
+
+        #c++
+        "libgcc1",
+        "libgomp1",
+        "libstdc++6",
+
+        #java
+        "zlib1g",
+        "libjpeg62-turbo",
+        "libpng16-16",
+        "liblcms2-2",
+        "libfreetype6",
+        "fonts-dejavu-core",
+        "fontconfig-config",
+        "libfontconfig1",
+        "openjdk-11-jre-headless",
+
+        #python
+        "dash",
+        "libc-bin",
+        "libpython2.7-minimal",
+        "libpython2.7-stdlib",
+        "python2.7-minimal",
+
+        #python3
+        "libmpdec2",
+        "libpython3.7-minimal",
+        "libpython3.7-stdlib",
+        "libtinfo6",
+        "libuuid1",
+        "libncursesw6",
+        "python3.7-minimal",
+
+        #dotnet
+        # "libcurl3",
+        # "libgssapi-krb5-2",
+        # "libicu57",
+        # "liblttng-ust0",
+        # "libssl1.0.2",
+        # "libunwind8",
+        # "libuuid1",
+        # "zlib1g",
+        # "curl",
+        # "libcomerr2",
+        # "libidn2-0",
+        # "libk5crypto3",
+        # "libkrb5-3",
+        # "libldap-2.4-2",
+        # "libldap-common",
+        # "libsasl2-2",
+        # "libnghttp2-14",
+        # "libpsl5",
+        # "librtmp1",
+        # "libssh2-1",
+        # "libkeyutils1",
+        # "libkrb5support0",
+        # "libunistring0",
+        # "libgnutls30",
+        # "libgmp10",
+        # "libhogweed4",
+        # "libidn11",
+        # "libnettle6",
+        # "libp11-kit0",
+        # "libffi6",
+        # "libtasn1-6",
+        # "libsasl2-modules-db",
+        # "libgcrypt20",
+        # "libgpg-error0",
+        # "libacl1",
+        # "libattr1",
+        # "libselinux1",
+        # "libpcre3",
+        # "libbz2-1.0",
+        # "liblzma5",
+    ],
+    # Takes the first package found: security updates should go first
+    # If there was a security fix to a package before the stable release, this will find
+    # the older security release. This happened for stretch libc6.
+    sources = [
+        "@debian11_security//file:Packages.json",
+        "@debian11//file:Packages.json",
+    ],
+)
+
 dpkg_src(
     name = "debian10_security",
     package_prefix = "https://snapshot.debian.org/archive/debian-security/20191028T085816Z/",
