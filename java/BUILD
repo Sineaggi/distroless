@@ -64,6 +64,8 @@ cacerts_java(
     ("_debian10", "java11_debug", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
     ("_debian11", "java11", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
     ("_debian11", "java11_debug", "openjdk-11-jre-headless", "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
+    ("_debian11", "java13", "openjdk-13-jre-headless", "/usr/lib/jvm/java-13-openjdk-amd64/bin/java"),
+    ("_debian11", "java13_debug", "openjdk-13-jre-headless", "/usr/lib/jvm/java-13-openjdk-amd64/bin/java"),
 ]]
 
 # Provide aliases so the default images use debian9
@@ -111,6 +113,18 @@ container_test(
     image = ":java11_debug" + distro_suffix,
 ) for distro_suffix in DISTRO_SUFFIXES]
 
+container_test(
+    name = "java13_debian11_test",
+    configs = ["testdata/java13.yaml"],
+    image = ":java13_debian11",
+)
+
+container_test(
+    name = "java13_debug_debian11_test",
+    configs = ["testdata/java13_debug.yaml"],
+    image = ":java13_debug_debian11",
+)
+
 java_image(
     name = "check_certs_java8_debian9",
     srcs = ["testdata/CheckCerts.java"],
@@ -125,6 +139,13 @@ java_image(
     main_class = "testdata.CheckCerts",
 ) for distro_suffix in DISTRO_SUFFIXES]
 
+java_image(
+    name = "check_certs_java13_debian11",
+    srcs = ["testdata/CheckCerts.java"],
+    base = "//java:java13_debian11",
+    main_class = "testdata.CheckCerts",
+)
+
 container_test(
     name = "check_certs_java8_debian9_test",
     configs = ["testdata/java8_certs.yaml"],
@@ -136,3 +157,9 @@ container_test(
     configs = ["testdata/java11_certs" + distro_suffix + ".yaml"],
     image = ":check_certs_java11" + distro_suffix,
 ) for distro_suffix in DISTRO_SUFFIXES]
+
+container_test(
+    name = "check_certs_java13_debian11_test",
+    configs = ["testdata/java13_certs.yaml"],
+    image = ":check_certs_java13_debian11",
+)

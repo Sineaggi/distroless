@@ -391,6 +391,7 @@ dpkg_list(
         "fontconfig-config",
         "libfontconfig1",
         "openjdk-11-jre-headless",
+        "openjdk-13-jre-headless",
 
         #python
         "dash",

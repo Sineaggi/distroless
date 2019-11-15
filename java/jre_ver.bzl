@@ -3,9 +3,12 @@ def jre_ver(version):
       Debian packages versions are of the form:
          openjdk-8-jre*: 8u171-b11-1~deb9u1
          openjdk-11-jre*: 11.0.1+13-2~bpo9+1
+         openjdk-13-jre*: 13.0.1+9-1
     """
     if version.startswith("8u"):
         return version.split("-")[0]
     if version.startswith("11."):
         return version.split("+")[0]
+    if version.startswith("13."):
+            return version.split("+")[0]
     fail("unrecognized openjdk package version: " + version)
