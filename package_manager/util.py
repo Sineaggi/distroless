@@ -37,9 +37,6 @@ def generate_os_release(distro, os_release_file):
     source is from an unknown debian release.
     """
 
-    print("TEST TEST")
-    print("the distro is " + distro)
-
     os_release = collections.OrderedDict([
         ("PRETTY_NAME", "Distroless"),
         ("NAME", "Debian GNU/Linux"),
@@ -51,11 +48,8 @@ def generate_os_release(distro, os_release_file):
         ("BUG_REPORT_URL", "https://github.com/GoogleContainerTools/distroless/issues/new"),
     ])
     if distro in DEBIAN_RELEASES:
-        print("FOUND IN DEBIAN_RELEASES")
         os_release["VERSION_ID"] = DEBIAN_RELEASES[distro]
         os_release["VERSION"] = '{0} {1} ({2})'.format(os_release["NAME"], os_release["VERSION_ID"], distro)
-    else:
-        print("OH NO " + distro + " NOT FOUND NO OS-RELEASE FOR U")
     for k, val in os_release.items():
         if val:
             os_release_file.write('{0}=\"{1}\"\n'.format(k, val))
