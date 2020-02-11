@@ -22,6 +22,7 @@ install:
 
 script:
   - ./test.sh
+  - cat bazel-out/k8-fastbuild/testlogs/*/*/*.log
 
 notifications:
   email: false
