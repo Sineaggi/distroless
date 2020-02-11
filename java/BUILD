@@ -100,10 +100,30 @@ cacerts_java(
         ],
         "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
     ),
-    ("_debian11", "java11", ["openjdk-11-jre-headless"], "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
-    ("_debian11", "java11_debug", ["openjdk-11-jre-headless"], "/usr/lib/jvm/java-11-openjdk-amd64/bin/java"),
-    ("_debian11", "java13", ["openjdk-13-jre-headless"], "/usr/lib/jvm/java-13-openjdk-amd64/bin/java"),
-    ("_debian11", "java13_debug", ["openjdk-13-jre-headless"], "/usr/lib/jvm/java-13-openjdk-amd64/bin/java"),
+    (
+        "_debian11",
+        "java11",
+        ["openjdk-11-jre-headless"],
+        "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+    ),
+    (
+        "_debian11",
+        "java11_debug",
+        ["openjdk-11-jre-headless"],
+        "/usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+    ),
+    (
+        "_debian11",
+        "java13",
+        ["openjdk-13-jre-headless"],
+        "/usr/lib/jvm/java-13-openjdk-amd64/bin/java",
+    ),
+    (
+        "_debian11",
+        "java13_debug",
+        ["openjdk-13-jre-headless"],
+        "/usr/lib/jvm/java-13-openjdk-amd64/bin/java",
+    ),
 ]]
 
 # Provide aliases so the default images use debian9
