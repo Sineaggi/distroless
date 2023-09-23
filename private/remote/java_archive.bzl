@@ -10,6 +10,19 @@ pkg_tar(
     srcs = glob(
         ["output/**/*"],
         exclude = [
+            "output/bin/javac",
+            "output/bin/javap",
+            "output/bin/jdeprscan",
+            "output/bin/jdeps",
+            "output/bin/jfr",
+            "output/bin/jimage",
+            "output/bin/jlink",
+            "output/bin/jmod",
+            "output/bin/jpackage",
+            "output/bin/jrunscript",
+            "output/bin/jwebserver",
+            "output/bin/rmiregistry",
+            "output/bin/serialver",
         ],
     ),
     package_dir = "/java",
@@ -62,7 +75,10 @@ def _impl(rctx):
     )
     if res.return_code != 0:
         fail("Failed list java modules. stdout=\"" + res.stdout + "\", stderr=\"" + res.stderr + "\"")
-    modules = [x.split("@")[0] for x in res.stdout.split("\n") if x and x not in rctx.attr.excluded_modules]
+    all_modules = [x.split("@")[0] for x in res.stdout.split("\n") if x]
+    modules = [x for x in all_modules if x not in rctx.attr.excluded_modules]
+    print(modules)
+    print(rctx.attr.excluded_modules)
     target_java_path = "/".join(str(rctx.path(Label(rctx.attr.target_jdk))).split("/")[:-1])
     res = rctx.execute(
         [
@@ -100,6 +116,27 @@ def _impl(rctx):
         ),
     )
 
+EXCLUDED_MODULES = [
+    "jdk.attach",
+    "jdk.compiler",
+    "jdk.editpad",
+    "jdk.hotspot.agent",
+    "jdk.internal.jvmstat",
+    "jdk.internal.opt",
+    "jdk.jartool",  # jar tool
+    "jdk.javadoc",  # javadoc tool
+    "jdk.jcmd",
+    "jdk.jconsole",
+    "jdk.jdeps",  # jdeps tool, scans modules in dependencies
+    "jdk.jdi",
+    "jdk.jlink",  # doesn't work
+    "jdk.jshell",  # java shell
+    "jdk.jstatd",
+    "jdk.pack",  # deprecated (and removed in java 14) tool for packaging jars in pack2000 format
+    "jdk.rmic",
+    "jdk.unsupported.desktop",
+]
+
 java_archive = repository_rule(
     implementation = _impl,
     attrs = {
@@ -113,6 +150,6 @@ java_archive = repository_rule(
         "source_jdk": attr.string(),
         "target_jdk": attr.string(),
         "compress": attr.string(default = "zip-6"),
-        "excluded_modules": attr.string_list(default = []),
+        "excluded_modules": attr.string_list(default = EXCLUDED_MODULES),
     },
 )
