@@ -10,11 +10,6 @@ pkg_tar(
     srcs = glob(
         ["output/**/*"],
         exclude = [
-            "output/lib/node_modules/corepack/**",
-            "output/lib/node_modules/npm/**",
-            "output/bin/corepack",
-            "output/bin/npm",
-            "output/bin/npx",
         ],
     ),
     package_dir = "/java",
@@ -76,7 +71,7 @@ def _impl(rctx):
             ",".join(modules),
             "--module-path",
             rctx.path(target_java_path).get_child("jmods"),
-            "--compress=2",
+            "--compress=" + rctx.attr.compress,
             "--no-header-files",
             "--no-man-pages",
             "--output",
@@ -117,6 +112,7 @@ java_archive = repository_rule(
         "control": attr.label(),
         "source_jdk": attr.string(),
         "target_jdk": attr.string(),
+        "compress": attr.string(default = "zip-6"),
         "excluded_modules": attr.string_list(default = []),
     },
 )
