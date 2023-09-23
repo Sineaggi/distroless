@@ -58,31 +58,24 @@ merge_providers(
 """
 
 def _impl(rctx):
-    rctx.report_progress("Fetching {}".format(rctx.attr.package_name))
-    rctx.download_and_extract(
-        url = rctx.attr.urls,
-        sha256 = rctx.attr.sha256,
-        type = rctx.attr.type,
-        stripPrefix = rctx.attr.strip_prefix,
-        output = "jdk",
-    )
-    jlink_java_path = "/".join(str(rctx.path(Label(rctx.attr.jlink_jdk))).split("/")[:-1] + ["bin"])
+    source_java_path = "/".join(str(rctx.path(Label(rctx.attr.source_jdk))).split("/")[:-1] + ["bin"])
     res = rctx.execute(
         [
-            jlink_java_path + "/java",
+            source_java_path + "/java",
             "--list-modules",
         ],
     )
     if res.return_code != 0:
-        fail("Error: Failed list java modules\n" + res.stdout)
+        fail("Failed list java modules. stdout=\"" + res.stdout + "\", stderr=\"" + res.stderr + "\"")
     modules = [x.split("@")[0] for x in res.stdout.split("\n") if x and x not in rctx.attr.excluded_modules]
+    target_java_path = "/".join(str(rctx.path(Label(rctx.attr.target_jdk))).split("/")[:-1])
     res = rctx.execute(
         [
-            jlink_java_path + "/jlink",
+            source_java_path + "/jlink",
             "--add-modules",
             ",".join(modules),
             "--module-path",
-            rctx.path("jdk").get_child("jmods"),
+            rctx.path(target_java_path).get_child("jmods"),
             "--compress=2",
             "--no-header-files",
             "--no-man-pages",
@@ -99,7 +92,6 @@ def _impl(rctx):
         substitutions = {
             "{{VERSION}}": rctx.attr.version,
             "{{ARCHITECTURE}}": rctx.attr.architecture,
-            "{{SHA256}}": rctx.attr.sha256,
         },
     )
     rctx.file(
@@ -119,16 +111,12 @@ java_archive = repository_rule(
         "urls": attr.string_list(mandatory = True),
         "sha256": attr.string(mandatory = True),
         "type": attr.string(default = ".tar.gz"),
-        "strip_prefix": attr.string(),
         "package_name": attr.string(default = "java"),
         "version": attr.string(mandatory = True),
         "architecture": attr.string(mandatory = True),
         "control": attr.label(),
-        "jlink_jdk": attr.string(),
+        "source_jdk": attr.string(),
+        "target_jdk": attr.string(),
         "excluded_modules": attr.string_list(default = []),
-        #"jlink_jdk": attr.label(
-        #    providers = [java_common.JavaToolchainInfo],
-        #    allow_files = True,
-        #),
     },
 )
