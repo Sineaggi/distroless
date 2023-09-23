@@ -207,7 +207,6 @@ def repositories():
         architecture = "amd64",
         control = "//java:control",
         compress = "2",
-        source_jdk = "@corretto_jdk11_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk11_linux_amd64//:WORKSPACE",
     )
 
@@ -220,7 +219,6 @@ def repositories():
         architecture = "arm64",
         control = "//java:control",
         compress = "2",
-        source_jdk = "@corretto_jdk11_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk11_linux_arm64//:WORKSPACE",
     )
 
@@ -233,7 +231,6 @@ def repositories():
         architecture = "amd64",
         control = "//java:control",
         compress = "2",
-        source_jdk = "@corretto_jdk17_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk17_linux_amd64//:WORKSPACE",
     )
 
@@ -246,7 +243,6 @@ def repositories():
         architecture = "arm64",
         control = "//java:control",
         compress = "2",
-        source_jdk = "@corretto_jdk17_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk17_linux_arm64//:WORKSPACE",
     )
 
@@ -259,7 +255,6 @@ def repositories():
         architecture = "amd64",
         control = "//java:control",
         compress = "2",
-        source_jdk = "@corretto_jdk20_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk20_linux_amd64//:WORKSPACE",
     )
 
@@ -272,7 +267,6 @@ def repositories():
         architecture = "arm64",
         control = "//java:control",
         compress = "2",
-        source_jdk = "@corretto_jdk20_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk20_linux_arm64//:WORKSPACE",
     )
 
@@ -284,7 +278,6 @@ def repositories():
         version = "21.0.0.35.1",
         architecture = "amd64",
         control = "//java:control",
-        source_jdk = "@corretto_jdk21_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk21_linux_arm64//:WORKSPACE",
     )
 
@@ -296,6 +289,5 @@ def repositories():
         version = "21.0.0.35.1",
         architecture = "arm64",
         control = "//java:control",
-        source_jdk = "@corretto_jdk21_macos_amd64//:WORKSPACE",
         target_jdk = "@corretto_jdk21_linux_arm64//:WORKSPACE",
     )

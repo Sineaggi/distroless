@@ -66,7 +66,18 @@ merge_providers(
 """
 
 def _impl(rctx):
-    source_java_path = "/".join(str(rctx.path(Label(rctx.attr.source_jdk))).split("/")[:-1] + ["bin"])
+    major_version = rctx.attr.version.split(".")[0]
+    if (rctx.os.name == "mac os x" and rctx.os.arch == "x86_64"):
+        source_jdk = Label("@corretto_jdk" + major_version + "_macos_amd64//:WORKSPACE")
+    elif (rctx.os.name == "mac os x" and rctx.os.arch == "aarch64"):
+        source_jdk = Label("@corretto_jdk" + major_version + "_macos_arm64//:WORKSPACE")
+    elif (rctx.os.name == "linux" and rctx.os.arch == "x86_64"):
+        source_jdk = Label("@corretto_jdk" + major_version + "_linux_amd64//:WORKSPACE")
+    elif (rctx.os.name == "linux" and rctx.os.arch == "aarch64"):
+        source_jdk = Label("@corretto_jdk" + major_version + "_linux_arm64//:WORKSPACE")
+    else:
+        fail("Unknown os/arch: " + rctx.os.name + "/" + rctx.os.arch)
+    source_java_path = "/".join(str(rctx.path(source_jdk)).split("/")[:-1] + ["bin"])
     res = rctx.execute(
         [
             source_java_path + "/java",
@@ -77,9 +88,7 @@ def _impl(rctx):
         fail("Failed list java modules. stdout=\"" + res.stdout + "\", stderr=\"" + res.stderr + "\"")
     all_modules = [x.split("@")[0] for x in res.stdout.split("\n") if x]
     modules = [x for x in all_modules if x not in rctx.attr.excluded_modules]
-    print(modules)
-    print(rctx.attr.excluded_modules)
-    target_java_path = "/".join(str(rctx.path(Label(rctx.attr.target_jdk))).split("/")[:-1])
+    target_java_path = "/".join(str(rctx.path(rctx.attr.target_jdk)).split("/")[:-1])
     res = rctx.execute(
         [
             source_java_path + "/jlink",
@@ -93,7 +102,6 @@ def _impl(rctx):
             "--output",
             "output",
         ],
-        quiet = False,
     )
     if res.return_code != 0:
         fail("Error: Failed to run jlink\n" + res.stdout)
@@ -147,8 +155,7 @@ java_archive = repository_rule(
         "version": attr.string(mandatory = True),
         "architecture": attr.string(mandatory = True),
         "control": attr.label(),
-        "source_jdk": attr.string(),
-        "target_jdk": attr.string(),
+        "target_jdk": attr.label(mandatory = True),
         "compress": attr.string(default = "zip-6"),
         "excluded_modules": attr.string_list(default = EXCLUDED_MODULES),
     },
