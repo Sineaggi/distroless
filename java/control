@@ -1,0 +1,8 @@
+Package: java-11-amazon-corretto-jdk
+Source: java-11-amazon-corretto-jdk
+Version: {{VERSION}}
+Architecture: {{ARCHITECTURE}}
+Maintainer: Amazon Corretto Team <corretto-team@amazon.com>
+Description: Amazon Corretto 11 development environment
+ Amazon Corretto's packaging of the OpenJDK 11 code.
+Homepage: https://github.com/corretto/corretto-11

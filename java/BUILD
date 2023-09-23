@@ -1,4 +1,4 @@
-load("@contrib_rules_oci//oci:defs.bzl", "oci_image", "oci_image_index", "structure_test")
+load("@contrib_rules_oci//oci:defs.bzl", "oci_image", "oci_image_index", "oci_tarball", "structure_test")
 load("@rules_pkg//:pkg.bzl", "pkg_tar")
 load("//private/oci:defs.bzl", "java_image")
 load("//base:base.bzl", "deb_pkg")
@@ -23,6 +23,11 @@ JAVA_ARCHITECTURES = ARCHITECTURES + [
 JAVA_VERSIONS = [
     "11",
     "17",
+]
+
+CORRETTO_JAVA_VERSIONS = JAVA_VERSIONS + [
+    "20",
+    "21",
 ]
 
 [
@@ -155,6 +160,34 @@ JAVA_VERSIONS = [
     for distro in DISTROS
     for user in USERS
 ]
+
+[
+    oci_image(
+        name = "corretto_java" + java_version + "_debug_" + "nonroot" + "_" + arch + "_" + "debian11",
+        architecture = "amd64",
+        base = ":java_base_debug_" + "nonroot" + "_" + arch + "_" + "debian11",
+        # We expect users to use:
+        # cmd = ["/path/to/deploy.jar", "--option1", ...]
+        entrypoint = [
+            "/usr/bin/java",
+            "-jar",
+        ],
+        env = {
+            "JAVA_VERSION": java_version,
+        },
+        tars = [
+            "@java" + java_version + "_" + arch,
+        ],
+    )
+    for java_version in CORRETTO_JAVA_VERSIONS
+    for arch in ARCHITECTURES
+]
+
+oci_tarball(
+    name = "tarballgg",
+    image = ":corretto_java21_debug_nonroot_amd64_debian11",
+    repotags = ["my-repository:latest"],
+)
 
 [
     oci_image(
